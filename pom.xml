@@ -31,6 +31,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+				<!-- 
 				<cloudHubDeployment>
 				<username>chaitanyagavini-aug21</username>
 				<password>LoveUMother@74</password>
@@ -41,6 +42,11 @@
 				<applicationName>Mule-MF</applicationName>
 				<muleVersion>4.3.0</muleVersion>
 				</cloudHubDeployment>
+				-->
+			<standaloneDeployment>
+      			<muleHome>C:/Users/cgavini/Downloads/mule-ee-distribution-standalone-4.3.0/mule-enterprise-standalone-4.3.0</muleHome>
+     			<muleVersion>4.3.0</muleVersion>
+    		</standaloneDeployment>
 				</configuration>
 			</plugin>
 		</plugins>
