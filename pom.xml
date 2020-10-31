@@ -38,7 +38,7 @@
 				<workers>1</workers>
 				<workerType>Micro</workerType>
 				<applicationName>Mule-MF</applicationName>
-				<muleVersion>4.3</muleVersion>
+				<muleVersion>4.3.0</muleVersion>
 				</cloudHubDeployment>
 				</configuration>
 			</plugin>
