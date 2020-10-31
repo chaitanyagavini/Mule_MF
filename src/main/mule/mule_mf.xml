@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e08af713-0b82-4d5f-8ed7-f496ad50c5a1" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="24c88817-97f6-42d6-8d22-11e29542e5d5">
+		<http:request-connection host="api.mfapi.in" protocol="HTTPS"/>
+	</http:request-config>
+	<flow name="mule_mfFlow" doc:id="c850b9a8-830e-4106-b46d-b762ffdbd860" >
+		<http:listener doc:name="Listener" doc:id="540c1605-3c8c-4178-87c6-c69b2b27ba98" config-ref="HTTP_Listener_config" path="/MF/{MFID}"/>
+		<set-variable value="#[attributes.queryParams.'Date']" doc:name="Set Variable" doc:id="2141710c-d56e-42ec-8635-34c197466202" variableName="date"/>
+		<http:request method="GET" doc:name="Request" doc:id="eba14dfd-9818-4af6-9d8d-6cf971b6ca7d" config-ref="HTTP_Request_configuration" path="/mf/{ID}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"ID" : attributes.uriParams.'MFID'
+}]]]></http:uri-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message" doc:id="df7a41a1-f177-4369-bbb0-c8a53dfd42ff" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+(Scheme : payload.meta.scheme_name) ++ (payload..data[0] filter ($.date == vars.date))[0]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
