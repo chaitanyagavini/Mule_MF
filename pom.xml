@@ -44,8 +44,8 @@
 				</cloudHubDeployment>
 				-->
 			<standaloneDeployment>
-      			<muleHome>C:/Users/cgavini/Downloads/mule-ee-distribution-standalone-4.3.0/mule-enterprise-standalone-4.3.0</muleHome>
-     			<muleVersion>4.3.0</muleVersion>
+      			<muleHome>${mule.home}</muleHome>
+     			<muleVersion>${mule.version}</muleVersion>
     		</standaloneDeployment>
 				</configuration>
 			</plugin>

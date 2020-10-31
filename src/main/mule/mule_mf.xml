@@ -29,6 +29,6 @@ output application/json
 (Scheme : payload.meta.scheme_name) ++ (payload..data[0] filter ($.date == vars.date))[0]]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="226a590d-3e97-4893-b836-fa38725a1154" message="#[payload]"/>
+		<logger level="INFO" doc:name="Log payload" doc:id="226a590d-3e97-4893-b836-fa38725a1154" message="#[payload]"/>
 	</flow>
 </mule>
